@@ -19,8 +19,8 @@ func (k Keima) IsMovableTo(to model.Location) bool {
 
 func (k Keima) GetMovementCapabilities() []model.MovementCapability {
 	return []model.MovementCapability{
-		{X: -1, Y: -2},
-		{X: 1, Y: -2},
+		{X: 1, Y: 2},
+		{X: -1, Y: 2},
 	}
 }
 

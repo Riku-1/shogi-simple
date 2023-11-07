@@ -19,12 +19,12 @@ func (k Kin) IsMovableTo(l model.Location) bool {
 
 func (k Kin) GetMovementCapabilities() []model.MovementCapability {
 	return []model.MovementCapability{
-		{X: -1, Y: -1},
-		{X: 0, Y: -1},
-		{X: 1, Y: -1},
-		{X: -1, Y: 0},
-		{X: 1, Y: 0},
 		{X: 0, Y: 1},
+		{X: 1, Y: 1},
+		{X: 1, Y: 0},
+		{X: 0, Y: -1},
+		{X: -1, Y: 0},
+		{X: -1, Y: 1},
 	}
 }
 

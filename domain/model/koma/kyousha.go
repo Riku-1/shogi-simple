@@ -19,14 +19,14 @@ func (k Kyousha) IsMovableTo(to model.Location) bool {
 
 func (k Kyousha) GetMovementCapabilities() []model.MovementCapability {
 	return []model.MovementCapability{
-		{X: 0, Y: -1},
-		{X: 0, Y: -2},
-		{X: 0, Y: -3},
-		{X: 0, Y: -4},
-		{X: 0, Y: -5},
-		{X: 0, Y: -6},
-		{X: 0, Y: -7},
-		{X: 0, Y: -8},
+		{X: 0, Y: 1},
+		{X: 0, Y: 2},
+		{X: 0, Y: 3},
+		{X: 0, Y: 4},
+		{X: 0, Y: 5},
+		{X: 0, Y: 6},
+		{X: 0, Y: 7},
+		{X: 0, Y: 8},
 	}
 }
 

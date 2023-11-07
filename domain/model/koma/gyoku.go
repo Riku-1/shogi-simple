@@ -19,14 +19,14 @@ func (g Gyoku) IsMovableTo(l model.Location) bool {
 
 func (g Gyoku) GetMovementCapabilities() []model.MovementCapability {
 	return []model.MovementCapability{
-		{X: -1, Y: -1},
-		{X: 0, Y: -1},
-		{X: 1, Y: -1},
-		{X: -1, Y: 0},
-		{X: 1, Y: 0},
-		{X: -1, Y: 1},
 		{X: 0, Y: 1},
 		{X: 1, Y: 1},
+		{X: 1, Y: 0},
+		{X: 1, Y: -1},
+		{X: 0, Y: -1},
+		{X: -1, Y: -1},
+		{X: -1, Y: 0},
+		{X: -1, Y: 1},
 	}
 }
 

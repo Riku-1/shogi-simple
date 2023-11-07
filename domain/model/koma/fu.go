@@ -19,7 +19,7 @@ func (f Fu) IsMovableTo(to model.Location) bool {
 
 func (f Fu) GetMovementCapabilities() []model.MovementCapability {
 	return []model.MovementCapability{
-		{X: 0, Y: -1},
+		{X: 0, Y: 1},
 	}
 }
 

@@ -8,14 +8,13 @@ const MinLocation = 1
 const MaxLocation = 9
 
 // Location 将棋の駒の位置を表す構造体
-// 右上が1,1で左下が9,9
+// 左下が1,1で右上が9,9(後手から見た形)を基準とする
 type Location struct {
 	X int
 	Y int
 }
 
 // NewLocation Locationのコンストラクタ
-// 解析など重い処理に使用したい場合は毎回バリデーションすると重いかもしれない。今回はそこまで実装する予定はないのでこのままで
 func NewLocation(x, y int) (*Location, error) {
 	if !CanLocation(x, y) {
 		return nil, fmt.Errorf("xまたはyが範囲外です。x:%d, y:%d", x, y)
