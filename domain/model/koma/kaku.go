@@ -7,6 +7,11 @@ import (
 
 type Kaku struct {
 	model.Location
+	IsSente bool
+}
+
+func (k Kaku) IsBelongToSente() bool {
+	return k.IsSente
 }
 
 func (k Kaku) IsMovableTo(l model.Location) bool {

@@ -7,6 +7,11 @@ import (
 
 type Kyousha struct {
 	model.Location
+	IsSente bool
+}
+
+func (k Kyousha) IsBelongToSente() bool {
+	return k.IsSente
 }
 
 func (k Kyousha) IsMovableTo(to model.Location) bool {

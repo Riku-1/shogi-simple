@@ -7,6 +7,11 @@ import (
 
 type Kin struct {
 	model.Location
+	IsSente bool
+}
+
+func (k Kin) IsBelongToSente() bool {
+	return k.IsSente
 }
 
 func (k Kin) IsMovableTo(l model.Location) bool {

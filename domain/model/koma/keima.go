@@ -7,6 +7,11 @@ import (
 
 type Keima struct {
 	model.Location
+	IsSente bool
+}
+
+func (k Keima) IsBelongToSente() bool {
+	return k.IsSente
 }
 
 func (k Keima) IsMovableTo(to model.Location) bool {

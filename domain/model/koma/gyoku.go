@@ -7,6 +7,11 @@ import (
 
 type Gyoku struct {
 	model.Location
+	IsSente bool
+}
+
+func (g Gyoku) IsBelongToSente() bool {
+	return g.IsSente
 }
 
 func (g Gyoku) IsMovableTo(l model.Location) bool {

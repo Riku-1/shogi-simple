@@ -7,6 +7,11 @@ import (
 
 type Fu struct {
 	model.Location
+	IsSente bool
+}
+
+func (f Fu) IsBelongToSente() bool {
+	return f.IsSente
 }
 
 func (f Fu) IsMovableTo(to model.Location) bool {

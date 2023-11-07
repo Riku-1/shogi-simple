@@ -8,7 +8,7 @@ import (
 
 func TestHisha(t *testing.T) {
 	t.Run("IsMovableTo", func(t *testing.T) {
-		t.Run("5, 5にいる場合", func(t *testing.T) {
+		t.Run("後手番の場合", func(t *testing.T) {
 			hisha := koma.Hisha{Location: model.Location{X: 5, Y: 5}}
 
 			t.Run("前は移動可", func(t *testing.T) {
@@ -64,7 +64,17 @@ func TestHisha(t *testing.T) {
 					t.Errorf("should be false")
 				}
 			})
+		})
 
+		t.Run("先手番の場合", func(t *testing.T) {
+			hisha := koma.Hisha{Location: model.Location{X: 5, Y: 5}, IsSente: true}
+
+			// 飛車に関しては先手後手で動作が変わらないので最低限
+			t.Run("前は移動可", func(t *testing.T) {
+				if !hisha.IsMovableTo(model.Location{X: 5, Y: 4}) {
+					t.Errorf("should be true")
+				}
+			})
 		})
 	})
 }

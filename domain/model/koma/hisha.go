@@ -7,6 +7,11 @@ import (
 
 type Hisha struct {
 	model.Location
+	IsSente bool
+}
+
+func (h Hisha) IsBelongToSente() bool {
+	return h.IsSente
 }
 
 func (h Hisha) IsMovableTo(l model.Location) bool {

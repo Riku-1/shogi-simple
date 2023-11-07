@@ -7,6 +7,11 @@ import (
 
 type Gin struct {
 	model.Location
+	IsSente bool
+}
+
+func (g Gin) IsBelongToSente() bool {
+	return g.IsSente
 }
 
 func (g Gin) IsMovableTo(l model.Location) bool {
