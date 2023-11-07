@@ -10,16 +10,12 @@ type Hisha struct {
 	IsSente bool
 }
 
-func (h Hisha) IsBelongToSente() bool {
-	return h.IsSente
+func (h Hisha) GetCurrentLocation() model.Location {
+	return h.Location
 }
 
-func (h Hisha) IsMovableTo(l model.Location) bool {
-	if !model.CanLocation(l.X, l.Y) {
-		return false
-	}
-
-	return h.Location.IsMovableTo(h, l)
+func (h Hisha) IsBelongToSente() bool {
+	return h.IsSente
 }
 
 func (h Hisha) GetMovementCapabilities() []model.MovementCapability {
@@ -67,7 +63,7 @@ func (h Hisha) GetMovementCapabilities() []model.MovementCapability {
 }
 
 func (h Hisha) MoveTo(l model.Location) (model.Movable, error) {
-	if !h.IsMovableTo(l) {
+	if !model.IsMovableTo(h, l) {
 		return Hisha{}, &error2.InvalidMovementError{}
 	}
 

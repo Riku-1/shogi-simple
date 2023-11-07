@@ -10,16 +10,12 @@ type Gin struct {
 	IsSente bool
 }
 
-func (g Gin) IsBelongToSente() bool {
-	return g.IsSente
+func (g Gin) GetCurrentLocation() model.Location {
+	return g.Location
 }
 
-func (g Gin) IsMovableTo(l model.Location) bool {
-	if !model.CanLocation(l.X, l.Y) {
-		return false
-	}
-
-	return g.Location.IsMovableTo(g, l)
+func (g Gin) IsBelongToSente() bool {
+	return g.IsSente
 }
 
 func (g Gin) GetMovementCapabilities() []model.MovementCapability {
@@ -33,7 +29,7 @@ func (g Gin) GetMovementCapabilities() []model.MovementCapability {
 }
 
 func (g Gin) MoveTo(l model.Location) (model.Movable, error) {
-	if !g.IsMovableTo(l) {
+	if !model.IsMovableTo(g, l) {
 		return Gin{}, &error2.InvalidMovementError{}
 	}
 

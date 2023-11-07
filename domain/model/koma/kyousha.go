@@ -10,16 +10,12 @@ type Kyousha struct {
 	IsSente bool
 }
 
-func (k Kyousha) IsBelongToSente() bool {
-	return k.IsSente
+func (k Kyousha) GetCurrentLocation() model.Location {
+	return k.Location
 }
 
-func (k Kyousha) IsMovableTo(to model.Location) bool {
-	if !model.CanLocation(to.X, to.Y) {
-		return false
-	}
-
-	return k.Location.IsMovableTo(k, to)
+func (k Kyousha) IsBelongToSente() bool {
+	return k.IsSente
 }
 
 func (k Kyousha) GetMovementCapabilities() []model.MovementCapability {
@@ -36,7 +32,7 @@ func (k Kyousha) GetMovementCapabilities() []model.MovementCapability {
 }
 
 func (k Kyousha) MoveTo(l model.Location) (model.Movable, error) {
-	if !k.IsMovableTo(l) {
+	if !model.IsMovableTo(k, l) {
 		return Kyousha{}, &error2.InvalidMovementError{}
 	}
 

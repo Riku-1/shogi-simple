@@ -10,16 +10,12 @@ type Kaku struct {
 	IsSente bool
 }
 
-func (k Kaku) IsBelongToSente() bool {
-	return k.IsSente
+func (k Kaku) GetCurrentLocation() model.Location {
+	return k.Location
 }
 
-func (k Kaku) IsMovableTo(l model.Location) bool {
-	if !model.CanLocation(l.X, l.Y) {
-		return false
-	}
-
-	return k.Location.IsMovableTo(k, l)
+func (k Kaku) IsBelongToSente() bool {
+	return k.IsSente
 }
 
 // GetMovementCapabilities
@@ -69,7 +65,7 @@ func (k Kaku) GetMovementCapabilities() []model.MovementCapability {
 }
 
 func (k Kaku) MoveTo(l model.Location) (model.Movable, error) {
-	if !k.IsMovableTo(l) {
+	if !model.IsMovableTo(k, l) {
 		return Kaku{}, &error2.InvalidMovementError{}
 	}
 

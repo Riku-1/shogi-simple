@@ -29,14 +29,3 @@ func NewLocation(x, y int) (*Location, error) {
 func IsValidLocation(x, y int) bool {
 	return MinLocation <= x && x <= MaxLocation && MinLocation <= y && y <= MaxLocation
 }
-
-func (l Location) IsMovableTo(m Movable, to Location) bool {
-	for _, c := range m.GetMovementCapabilities() {
-		moveX, moveY := c.GetActual(m.IsBelongToSente())
-		if l.X+moveX == to.X && l.Y+moveY == to.Y {
-			return true
-		}
-	}
-
-	return false
-}

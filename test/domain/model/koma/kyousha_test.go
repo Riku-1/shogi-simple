@@ -12,20 +12,26 @@ func TestKyousha(t *testing.T) {
 			kyousha := koma.Kyousha{Location: model.Location{X: 1, Y: 1}}
 
 			t.Run("前1マスは移動可", func(t *testing.T) {
-				if !kyousha.IsMovableTo(model.Location{X: 1, Y: 2}) {
-					t.Errorf("should be true")
+				_, err := kyousha.MoveTo(model.Location{X: 1, Y: 2})
+
+				if err != nil {
+					t.Errorf("should be nil")
 				}
 			})
 
 			t.Run("前8マスは移動可", func(t *testing.T) {
-				if !kyousha.IsMovableTo(model.Location{X: 1, Y: 9}) {
-					t.Errorf("should be true")
+				_, err := kyousha.MoveTo(model.Location{X: 1, Y: 9})
+
+				if err != nil {
+					t.Errorf("should be nil")
 				}
 			})
 
 			t.Run("横には移動できない", func(t *testing.T) {
-				if kyousha.IsMovableTo(model.Location{X: 2, Y: 1}) {
-					t.Errorf("should be false")
+				_, err := kyousha.MoveTo(model.Location{X: 2, Y: 1})
+
+				if err == nil {
+					t.Errorf("should be error")
 				}
 			})
 		})
@@ -34,20 +40,26 @@ func TestKyousha(t *testing.T) {
 			kyousha := koma.Kyousha{Location: model.Location{X: 9, Y: 9}, IsSente: true}
 
 			t.Run("前1マスは移動可", func(t *testing.T) {
-				if !kyousha.IsMovableTo(model.Location{X: 9, Y: 8}) {
-					t.Errorf("should be true")
+				_, err := kyousha.MoveTo(model.Location{X: 9, Y: 8})
+
+				if err != nil {
+					t.Errorf("should be nil")
 				}
 			})
 
 			t.Run("前8マスは移動可", func(t *testing.T) {
-				if !kyousha.IsMovableTo(model.Location{X: 9, Y: 1}) {
-					t.Errorf("should be true")
+				_, err := kyousha.MoveTo(model.Location{X: 9, Y: 1})
+
+				if err != nil {
+					t.Errorf("should be nil")
 				}
 			})
 
 			t.Run("横には移動できない", func(t *testing.T) {
-				if kyousha.IsMovableTo(model.Location{X: 8, Y: 9}) {
-					t.Errorf("should be false")
+				_, err := kyousha.MoveTo(model.Location{X: 8, Y: 9})
+
+				if err == nil {
+					t.Errorf("should be error")
 				}
 			})
 		})

@@ -7,20 +7,22 @@ import (
 )
 
 func TestFu(t *testing.T) {
-	t.Run("IsMovableTo", func(t *testing.T) {
+	t.Run("MoveTo", func(t *testing.T) {
 		t.Run("後手番", func(t *testing.T) {
 			// 5, 5にいるとする
 			fu := koma.Fu{Location: model.Location{X: 5, Y: 5}, IsSente: false}
 
 			t.Run("5, 6は移動可", func(t *testing.T) {
-				if !fu.IsMovableTo(model.Location{X: 5, Y: 6}) {
-					t.Errorf("should be true")
+				_, err := fu.MoveTo(model.Location{X: 5, Y: 6})
+				if err != nil {
+					t.Errorf("should be nil")
 				}
 			})
 
 			t.Run("5, 4は移動不可", func(t *testing.T) {
-				if fu.IsMovableTo(model.Location{X: 5, Y: 4}) {
-					t.Errorf("should be false")
+				_, err := fu.MoveTo(model.Location{X: 5, Y: 4})
+				if err == nil {
+					t.Errorf("should be error")
 				}
 			})
 		})
@@ -30,14 +32,16 @@ func TestFu(t *testing.T) {
 			fu := koma.Fu{Location: model.Location{X: 5, Y: 5}, IsSente: true}
 
 			t.Run("5, 4は移動可", func(t *testing.T) {
-				if !fu.IsMovableTo(model.Location{X: 5, Y: 4}) {
-					t.Errorf("should be true")
+				_, err := fu.MoveTo(model.Location{X: 5, Y: 4})
+				if err != nil {
+					t.Errorf("should be nil")
 				}
 			})
 
 			t.Run("5, 6は移動不可", func(t *testing.T) {
-				if fu.IsMovableTo(model.Location{X: 5, Y: 6}) {
-					t.Errorf("should be false")
+				_, err := fu.MoveTo(model.Location{X: 5, Y: 6})
+				if err == nil {
+					t.Errorf("should be error")
 				}
 			})
 		})

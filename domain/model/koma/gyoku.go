@@ -10,16 +10,12 @@ type Gyoku struct {
 	IsSente bool
 }
 
-func (g Gyoku) IsBelongToSente() bool {
-	return g.IsSente
+func (g Gyoku) GetCurrentLocation() model.Location {
+	return g.Location
 }
 
-func (g Gyoku) IsMovableTo(l model.Location) bool {
-	if !model.CanLocation(l.X, l.Y) {
-		return false
-	}
-
-	return g.Location.IsMovableTo(g, l)
+func (g Gyoku) IsBelongToSente() bool {
+	return g.IsSente
 }
 
 func (g Gyoku) GetMovementCapabilities() []model.MovementCapability {
@@ -36,7 +32,7 @@ func (g Gyoku) GetMovementCapabilities() []model.MovementCapability {
 }
 
 func (g Gyoku) MoveTo(l model.Location) (model.Movable, error) {
-	if !g.IsMovableTo(l) {
+	if !model.IsMovableTo(g, l) {
 		return Gyoku{}, &error2.InvalidMovementError{}
 	}
 

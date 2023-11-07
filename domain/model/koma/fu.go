@@ -10,16 +10,12 @@ type Fu struct {
 	IsSente bool
 }
 
-func (f Fu) IsBelongToSente() bool {
-	return f.IsSente
+func (f Fu) GetCurrentLocation() model.Location {
+	return f.Location
 }
 
-func (f Fu) IsMovableTo(to model.Location) bool {
-	if !model.CanLocation(to.X, to.Y) {
-		return false
-	}
-
-	return f.Location.IsMovableTo(f, to)
+func (f Fu) IsBelongToSente() bool {
+	return f.IsSente
 }
 
 func (f Fu) GetMovementCapabilities() []model.MovementCapability {
@@ -29,7 +25,7 @@ func (f Fu) GetMovementCapabilities() []model.MovementCapability {
 }
 
 func (f Fu) MoveTo(l model.Location) (model.Movable, error) {
-	if !f.IsMovableTo(l) {
+	if !model.IsMovableTo(f, l) {
 		return Fu{}, &error2.InvalidMovementError{}
 	}
 
