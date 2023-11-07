@@ -1,6 +1,9 @@
 package koma
 
-import "shogi/domain/model"
+import (
+	error2 "shogi/domain/error"
+	"shogi/domain/model"
+)
 
 type Fu struct {
 	model.Location
@@ -20,9 +23,9 @@ func (f Fu) GetMovementCapabilities() []model.MovementCapability {
 	}
 }
 
-func (f Fu) MoveTo(l model.Location) (Fu, error) {
+func (f Fu) MoveTo(l model.Location) (model.Movable, error) {
 	if !f.IsMovableTo(l) {
-		return Fu{}, nil
+		return Fu{}, &error2.InvalidMovementError{}
 	}
 
 	return Fu{

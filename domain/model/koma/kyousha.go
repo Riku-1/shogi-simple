@@ -1,6 +1,9 @@
 package koma
 
-import "shogi/domain/model"
+import (
+	error2 "shogi/domain/error"
+	"shogi/domain/model"
+)
 
 type Kyousha struct {
 	model.Location
@@ -27,9 +30,9 @@ func (k Kyousha) GetMovementCapabilities() []model.MovementCapability {
 	}
 }
 
-func (k Kyousha) MoveTo(l model.Location) (Kyousha, error) {
+func (k Kyousha) MoveTo(l model.Location) (model.Movable, error) {
 	if !k.IsMovableTo(l) {
-		return Kyousha{}, nil
+		return Kyousha{}, &error2.InvalidMovementError{}
 	}
 
 	return Kyousha{
