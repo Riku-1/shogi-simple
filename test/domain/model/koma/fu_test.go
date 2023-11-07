@@ -1,4 +1,4 @@
-package model
+package koma
 
 import (
 	"shogi/domain/model"
