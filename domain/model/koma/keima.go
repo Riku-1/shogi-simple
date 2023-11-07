@@ -7,25 +7,26 @@ import (
 
 type Keima struct {
 	model.Location
+	IsSente bool
 }
 
-func (k Keima) IsMovableTo(to model.Location) bool {
-	if !model.CanLocation(to.X, to.Y) {
-		return false
-	}
+func (k Keima) GetCurrentLocation() model.Location {
+	return k.Location
+}
 
-	return k.Location.IsMovableTo(k, to)
+func (k Keima) IsBelongToSente() bool {
+	return k.IsSente
 }
 
 func (k Keima) GetMovementCapabilities() []model.MovementCapability {
 	return []model.MovementCapability{
-		{X: -1, Y: -2},
-		{X: 1, Y: -2},
+		{X: 1, Y: 2},
+		{X: -1, Y: 2},
 	}
 }
 
 func (k Keima) MoveTo(l model.Location) (model.Movable, error) {
-	if !k.IsMovableTo(l) {
+	if !model.IsMovableTo(k, l) {
 		return Keima{}, &error2.InvalidMovementError{}
 	}
 

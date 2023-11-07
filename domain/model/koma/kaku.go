@@ -7,14 +7,15 @@ import (
 
 type Kaku struct {
 	model.Location
+	IsSente bool
 }
 
-func (k Kaku) IsMovableTo(l model.Location) bool {
-	if !model.CanLocation(l.X, l.Y) {
-		return false
-	}
+func (k Kaku) GetCurrentLocation() model.Location {
+	return k.Location
+}
 
-	return k.Location.IsMovableTo(k, l)
+func (k Kaku) IsBelongToSente() bool {
+	return k.IsSente
 }
 
 // GetMovementCapabilities
@@ -22,26 +23,6 @@ func (k Kaku) IsMovableTo(l model.Location) bool {
 func (k Kaku) GetMovementCapabilities() []model.MovementCapability {
 	return []model.MovementCapability{
 		// 右上
-		{X: -1, Y: -1},
-		{X: -2, Y: -2},
-		{X: -3, Y: -3},
-		{X: -4, Y: -4},
-		{X: -5, Y: -5},
-		{X: -6, Y: -6},
-		{X: -7, Y: -7},
-		{X: -8, Y: -8},
-
-		// 左上
-		{X: 1, Y: -1},
-		{X: 2, Y: -2},
-		{X: 3, Y: -3},
-		{X: 4, Y: -4},
-		{X: 5, Y: -5},
-		{X: 6, Y: -6},
-		{X: 7, Y: -7},
-		{X: 8, Y: -8},
-
-		// 左下
 		{X: 1, Y: 1},
 		{X: 2, Y: 2},
 		{X: 3, Y: 3},
@@ -52,6 +33,26 @@ func (k Kaku) GetMovementCapabilities() []model.MovementCapability {
 		{X: 8, Y: 8},
 
 		// 右下
+		{X: 1, Y: -1},
+		{X: 2, Y: -2},
+		{X: 3, Y: -3},
+		{X: 4, Y: -4},
+		{X: 5, Y: -5},
+		{X: 6, Y: -6},
+		{X: 7, Y: -7},
+		{X: 8, Y: -8},
+
+		// 左下
+		{X: -1, Y: -1},
+		{X: -2, Y: -2},
+		{X: -3, Y: -3},
+		{X: -4, Y: -4},
+		{X: -5, Y: -5},
+		{X: -6, Y: -6},
+		{X: -7, Y: -7},
+		{X: -8, Y: -8},
+
+		// 左上
 		{X: -1, Y: 1},
 		{X: -2, Y: 2},
 		{X: -3, Y: 3},
@@ -64,7 +65,7 @@ func (k Kaku) GetMovementCapabilities() []model.MovementCapability {
 }
 
 func (k Kaku) MoveTo(l model.Location) (model.Movable, error) {
-	if !k.IsMovableTo(l) {
+	if !model.IsMovableTo(k, l) {
 		return Kaku{}, &error2.InvalidMovementError{}
 	}
 
