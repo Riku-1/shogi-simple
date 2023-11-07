@@ -16,7 +16,7 @@ type Location struct {
 
 // NewLocation Locationのコンストラクタ
 func NewLocation(x, y int) (*Location, error) {
-	if !CanLocation(x, y) {
+	if !IsValidLocation(x, y) {
 		return nil, fmt.Errorf("xまたはyが範囲外です。x:%d, y:%d", x, y)
 	}
 
@@ -26,7 +26,7 @@ func NewLocation(x, y int) (*Location, error) {
 	}, nil
 }
 
-func CanLocation(x, y int) bool {
+func IsValidLocation(x, y int) bool {
 	return MinLocation <= x && x <= MaxLocation && MinLocation <= y && y <= MaxLocation
 }
 
