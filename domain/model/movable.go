@@ -4,7 +4,7 @@ type Movable interface {
 	GetCurrentLocation() Location
 	GetMovementCapabilities() []MovementCapability
 	MoveTo(l Location) (Movable, error)
-	IsBelongToSente() bool
+	IsSente() bool
 }
 
 func IsMovableTo(m Movable, to Location) bool {
@@ -25,7 +25,7 @@ func GetMovableLocations(m Movable) []Location {
 	var locations []Location
 
 	for _, movementCapability := range movementCapabilities {
-		moveX, moveY := movementCapability.GetActual(m.IsBelongToSente())
+		moveX, moveY := movementCapability.GetActual(m.IsSente())
 		x := cl.X + moveX
 		y := cl.Y + moveY
 		if IsValidLocation(x, y) {

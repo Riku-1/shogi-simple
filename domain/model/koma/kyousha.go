@@ -3,22 +3,48 @@ package koma
 import (
 	error2 "shogi/domain/error"
 	"shogi/domain/model"
+	"shogi/domain/model/koma/move"
 )
 
 type Kyousha struct {
-	model.Location
-	IsSente bool
+	location model.Location
+	isSente  bool
+	isNari   bool
+}
+
+func LocateKyousha(location model.Location, isSente bool) Kyousha {
+	return Kyousha{
+		location: location,
+		isSente:  isSente,
+		isNari:   false,
+	}
+}
+
+func (k Kyousha) Nari() model.Movable {
+	return Kyousha{
+		location: k.location,
+		isSente:  k.isSente,
+		isNari:   true,
+	}
+}
+
+func (k Kyousha) IsNari() bool {
+	return k.isNari
 }
 
 func (k Kyousha) GetCurrentLocation() model.Location {
-	return k.Location
+	return k.location
 }
 
-func (k Kyousha) IsBelongToSente() bool {
-	return k.IsSente
+func (k Kyousha) IsSente() bool {
+	return k.isSente
 }
 
 func (k Kyousha) GetMovementCapabilities() []model.MovementCapability {
+	if k.isNari {
+		return move.GetKinMovementCapabilities()
+	}
+
 	return []model.MovementCapability{
 		{X: 0, Y: 1},
 		{X: 0, Y: 2},
@@ -37,6 +63,8 @@ func (k Kyousha) MoveTo(l model.Location) (model.Movable, error) {
 	}
 
 	return Kyousha{
-		Location: l,
+		location: l,
+		isSente:  k.isSente,
+		isNari:   k.isNari,
 	}, nil
 }
