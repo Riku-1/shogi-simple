@@ -6,16 +6,37 @@ import (
 )
 
 type Kyousha struct {
-	model.Location
-	IsSente bool
+	location model.Location
+	isSente  bool
+	isNari   bool
+}
+
+func LocateKyousha(location model.Location, isSente bool) Kyousha {
+	return Kyousha{
+		location: location,
+		isSente:  isSente,
+		isNari:   false,
+	}
+}
+
+func (k Kyousha) Nari() model.Movable {
+	return Kyousha{
+		location: k.location,
+		isSente:  k.isSente,
+		isNari:   true,
+	}
+}
+
+func (k Kyousha) IsNari() bool {
+	return k.isNari
 }
 
 func (k Kyousha) GetCurrentLocation() model.Location {
-	return k.Location
+	return k.location
 }
 
-func (k Kyousha) IsBelongToSente() bool {
-	return k.IsSente
+func (k Kyousha) IsSente() bool {
+	return k.isSente
 }
 
 func (k Kyousha) GetMovementCapabilities() []model.MovementCapability {
@@ -37,6 +58,8 @@ func (k Kyousha) MoveTo(l model.Location) (model.Movable, error) {
 	}
 
 	return Kyousha{
-		Location: l,
+		location: l,
+		isSente:  k.isSente,
+		isNari:   k.isNari,
 	}, nil
 }

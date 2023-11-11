@@ -9,7 +9,7 @@ import (
 
 func TestGetMovableLocations(t *testing.T) {
 	t.Run("移動場所が盤外の場合は移動不可", func(t *testing.T) {
-		fu := koma.Fu{Location: model.Location{X: 5, Y: 9}, IsSente: false}
+		fu := koma.LocateFu(model.Location{X: 5, Y: 9}, false)
 		movableLocations := model.GetMovableLocations(fu)
 		if len(movableLocations) != 0 {
 			t.Errorf("should be 0")
@@ -25,7 +25,7 @@ func TestGetMovableLocations(t *testing.T) {
 	})
 
 	t.Run("移動可能場所が正しく取得できること", func(t *testing.T) {
-		hisha := koma.Hisha{Location: model.Location{X: 5, Y: 5}}
+		hisha := koma.LocateHisha(model.Location{X: 5, Y: 5}, false)
 		movableLocations := model.GetMovableLocations(hisha)
 
 		expected := []model.Location{
@@ -51,5 +51,21 @@ func TestGetMovableLocations(t *testing.T) {
 		}
 
 		assert.ElementsMatch(t, expected, movableLocations)
+	})
+}
+
+func TestIsMovableTo(t *testing.T) {
+	t.Run("移動できない場合_false", func(t *testing.T) {
+		fu := koma.LocateFu(model.Location{X: 5, Y: 5}, false)
+		if model.IsMovableTo(fu, model.Location{X: 5, Y: 4}) {
+			t.Errorf("should be false")
+		}
+	})
+
+	t.Run("移動できる場合_true", func(t *testing.T) {
+		fu := koma.LocateFu(model.Location{X: 5, Y: 5}, false)
+		if !model.IsMovableTo(fu, model.Location{X: 5, Y: 6}) {
+			t.Errorf("should be true")
+		}
 	})
 }

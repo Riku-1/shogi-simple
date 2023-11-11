@@ -9,7 +9,7 @@ import (
 func TestKyousha(t *testing.T) {
 	t.Run("IsMovableTo", func(t *testing.T) {
 		t.Run("後手番の場合", func(t *testing.T) {
-			kyousha := koma.Kyousha{Location: model.Location{X: 1, Y: 1}}
+			kyousha := koma.LocateKyousha(model.Location{X: 1, Y: 1}, false)
 
 			t.Run("前1マスは移動可", func(t *testing.T) {
 				_, err := kyousha.MoveTo(model.Location{X: 1, Y: 2})
@@ -37,7 +37,7 @@ func TestKyousha(t *testing.T) {
 		})
 
 		t.Run("先手番の場合", func(t *testing.T) {
-			kyousha := koma.Kyousha{Location: model.Location{X: 9, Y: 9}, IsSente: true}
+			kyousha := koma.LocateKyousha(model.Location{X: 9, Y: 9}, true)
 
 			t.Run("前1マスは移動可", func(t *testing.T) {
 				_, err := kyousha.MoveTo(model.Location{X: 9, Y: 8})

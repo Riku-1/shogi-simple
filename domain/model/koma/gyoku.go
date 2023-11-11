@@ -6,16 +6,23 @@ import (
 )
 
 type Gyoku struct {
-	model.Location
-	IsSente bool
+	location model.Location
+	isSente  bool
+}
+
+func LocateGyoku(l model.Location, isSente bool) Gyoku {
+	return Gyoku{
+		location: l,
+		isSente:  isSente,
+	}
 }
 
 func (g Gyoku) GetCurrentLocation() model.Location {
-	return g.Location
+	return g.location
 }
 
-func (g Gyoku) IsBelongToSente() bool {
-	return g.IsSente
+func (g Gyoku) IsSente() bool {
+	return g.isSente
 }
 
 func (g Gyoku) GetMovementCapabilities() []model.MovementCapability {
@@ -37,6 +44,6 @@ func (g Gyoku) MoveTo(l model.Location) (model.Movable, error) {
 	}
 
 	return Gyoku{
-		Location: l,
+		location: l,
 	}, nil
 }

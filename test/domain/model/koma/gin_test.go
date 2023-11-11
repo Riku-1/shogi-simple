@@ -9,7 +9,7 @@ import (
 func TestGin(t *testing.T) {
 	t.Run("MoveTo", func(t *testing.T) {
 		t.Run("後手番の場合", func(t *testing.T) {
-			gin := koma.Gin{Location: model.Location{X: 5, Y: 5}, IsSente: false}
+			gin := koma.LocateGin(model.Location{X: 5, Y: 5}, false)
 
 			t.Run("前は移動可", func(t *testing.T) {
 				_, err := gin.MoveTo(model.Location{X: 5, Y: 6})
@@ -69,7 +69,7 @@ func TestGin(t *testing.T) {
 		})
 
 		t.Run("先手番の場合", func(t *testing.T) {
-			gin := koma.Gin{Location: model.Location{X: 5, Y: 5}, IsSente: true}
+			gin := koma.LocateGin(model.Location{X: 5, Y: 5}, true)
 
 			t.Run("前は移動可", func(t *testing.T) {
 				_, err := gin.MoveTo(model.Location{X: 5, Y: 4})

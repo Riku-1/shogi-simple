@@ -9,7 +9,7 @@ import (
 func TestKeima(t *testing.T) {
 	t.Run("IsMovableTo", func(t *testing.T) {
 		t.Run("後手番の場合", func(t *testing.T) {
-			keima := koma.Keima{Location: model.Location{X: 5, Y: 5}}
+			keima := koma.LocateKeima(model.Location{X: 5, Y: 5}, false)
 			t.Run("前2マス,右1マスは移動可", func(t *testing.T) {
 				_, err := keima.MoveTo(model.Location{X: 6, Y: 7})
 				if err != nil {
@@ -40,7 +40,7 @@ func TestKeima(t *testing.T) {
 		})
 
 		t.Run("先手番の場合", func(t *testing.T) {
-			keima := koma.Keima{Location: model.Location{X: 5, Y: 5}, IsSente: true}
+			keima := koma.LocateKeima(model.Location{X: 5, Y: 5}, true)
 			t.Run("前2マス,右1マスは移動可", func(t *testing.T) {
 				_, err := keima.MoveTo(model.Location{X: 4, Y: 3})
 				if err != nil {

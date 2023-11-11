@@ -9,7 +9,7 @@ import (
 func TestKin(t *testing.T) {
 	t.Run("IsMovableTo", func(t *testing.T) {
 		t.Run("後手番の場合", func(t *testing.T) {
-			kin := koma.Kin{Location: model.Location{X: 5, Y: 5}}
+			kin := koma.LocateKin(model.Location{X: 5, Y: 5}, false)
 			t.Run("前は移動可", func(t *testing.T) {
 				_, err := kin.MoveTo(model.Location{X: 5, Y: 6})
 				if err != nil {
@@ -68,7 +68,7 @@ func TestKin(t *testing.T) {
 		})
 
 		t.Run("先手番の場合", func(t *testing.T) {
-			kin := koma.Kin{Location: model.Location{X: 5, Y: 5}, IsSente: true}
+			kin := koma.LocateKin(model.Location{X: 5, Y: 5}, true)
 			t.Run("前は移動可", func(t *testing.T) {
 				_, err := kin.MoveTo(model.Location{X: 5, Y: 4})
 				if err != nil {

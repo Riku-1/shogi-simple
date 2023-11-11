@@ -5,8 +5,8 @@ type MovementCapability struct {
 	Y int
 }
 
-func (c MovementCapability) GetActual(isSente bool) (int, int) {
-	if isSente {
+func (c MovementCapability) GetActual(IsSente bool) (int, int) {
+	if IsSente {
 		return c.X * -1, c.Y * -1
 	}
 

@@ -6,20 +6,41 @@ import (
 )
 
 type Hisha struct {
-	model.Location
-	IsSente bool
+	location model.Location
+	isSente  bool
+	isNari   bool
+}
+
+func LocateHisha(l model.Location, isSente bool) Hisha {
+	return Hisha{
+		location: l,
+		isSente:  isSente,
+		isNari:   false,
+	}
+}
+
+func (h Hisha) IsNari() bool {
+	return h.isNari
+}
+
+func (h Hisha) Nari() model.Movable {
+	return Hisha{
+		location: h.location,
+		isSente:  h.isSente,
+		isNari:   true,
+	}
 }
 
 func (h Hisha) GetCurrentLocation() model.Location {
-	return h.Location
+	return h.location
 }
 
-func (h Hisha) IsBelongToSente() bool {
-	return h.IsSente
+func (h Hisha) IsSente() bool {
+	return h.isSente
 }
 
 func (h Hisha) GetMovementCapabilities() []model.MovementCapability {
-	return []model.MovementCapability{
+	baseMc := []model.MovementCapability{
 		// 上
 		{X: 0, Y: 1},
 		{X: 0, Y: 2},
@@ -60,6 +81,19 @@ func (h Hisha) GetMovementCapabilities() []model.MovementCapability {
 		{X: 0, Y: -7},
 		{X: 0, Y: -8},
 	}
+
+	if !h.IsNari() {
+		return baseMc
+	}
+
+	addedMc := []model.MovementCapability{
+		{X: 1, Y: 1},
+		{X: 1, Y: -1},
+		{X: -1, Y: 1},
+		{X: -1, Y: -1},
+	}
+
+	return append(baseMc, addedMc...)
 }
 
 func (h Hisha) MoveTo(l model.Location) (model.Movable, error) {
@@ -68,6 +102,6 @@ func (h Hisha) MoveTo(l model.Location) (model.Movable, error) {
 	}
 
 	return Hisha{
-		Location: l,
+		location: l,
 	}, nil
 }
