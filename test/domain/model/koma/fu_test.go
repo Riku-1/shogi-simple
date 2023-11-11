@@ -45,5 +45,18 @@ func TestFu(t *testing.T) {
 				}
 			})
 		})
+
+		t.Run("成った後の動き", func(t *testing.T) {
+			fu := koma.LocateFu(model.Location{X: 5, Y: 5}, false)
+			promoted := fu.Nari()
+
+			// 他は省略
+			t.Run("5, 6は移動可", func(t *testing.T) {
+				_, err := promoted.MoveTo(model.Location{X: 5, Y: 6})
+				if err != nil {
+					t.Errorf("should be nil")
+				}
+			})
+		})
 	})
 }

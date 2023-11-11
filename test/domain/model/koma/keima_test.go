@@ -69,5 +69,25 @@ func TestKeima(t *testing.T) {
 				}
 			})
 		})
+
+		t.Run("成った後の動き", func(t *testing.T) {
+			keima := koma.LocateKeima(model.Location{X: 5, Y: 5}, false)
+			promoted := keima.Nari()
+
+			// 他は省略
+			t.Run("横にも動ける", func(t *testing.T) {
+				_, err := promoted.MoveTo(model.Location{X: 4, Y: 5})
+				if err != nil {
+					t.Errorf("should be nil")
+				}
+			})
+
+			t.Run("成る前の動きはできない", func(t *testing.T) {
+				_, err := promoted.MoveTo(model.Location{X: 4, Y: 7})
+				if err == nil {
+					t.Errorf("should not be nil")
+				}
+			})
+		})
 	})
 }

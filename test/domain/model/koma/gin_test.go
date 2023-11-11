@@ -127,5 +127,18 @@ func TestGin(t *testing.T) {
 				}
 			})
 		})
+
+		t.Run("成った後の動き", func(t *testing.T) {
+			gin := koma.LocateGin(model.Location{X: 5, Y: 5}, false)
+			promoted := gin.Nari()
+
+			// 他は省略
+			t.Run("後ろにも動ける", func(t *testing.T) {
+				_, err := promoted.MoveTo(model.Location{X: 5, Y: 4})
+				if err != nil {
+					t.Errorf("should be nil")
+				}
+			})
+		})
 	})
 }

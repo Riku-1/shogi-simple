@@ -108,5 +108,18 @@ func TestKaku(t *testing.T) {
 				}
 			})
 		})
+
+		t.Run("成った後の動き", func(t *testing.T) {
+			kaku := koma.LocateKaku(model.Location{X: 5, Y: 5}, false)
+			promoted := kaku.Nari()
+
+			// 他は省略
+			t.Run("横にも動ける", func(t *testing.T) {
+				_, err := promoted.MoveTo(model.Location{X: 4, Y: 5})
+				if err != nil {
+					t.Errorf("should be nil")
+				}
+			})
+		})
 	})
 }

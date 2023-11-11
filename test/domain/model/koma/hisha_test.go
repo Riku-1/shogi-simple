@@ -86,5 +86,18 @@ func TestHisha(t *testing.T) {
 				}
 			})
 		})
+
+		t.Run("成った後の動き", func(t *testing.T) {
+			hisha := koma.LocateHisha(model.Location{X: 5, Y: 5}, false)
+			promoted := hisha.Nari()
+
+			// 他は省略
+			t.Run("斜めにも動ける", func(t *testing.T) {
+				_, err := promoted.MoveTo(model.Location{X: 4, Y: 4})
+				if err != nil {
+					t.Errorf("should be nil")
+				}
+			})
+		})
 	})
 }

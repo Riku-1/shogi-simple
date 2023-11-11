@@ -3,6 +3,7 @@ package koma
 import (
 	error2 "shogi/domain/error"
 	"shogi/domain/model"
+	"shogi/domain/model/koma/move"
 )
 
 type Kyousha struct {
@@ -40,6 +41,10 @@ func (k Kyousha) IsSente() bool {
 }
 
 func (k Kyousha) GetMovementCapabilities() []model.MovementCapability {
+	if k.isNari {
+		return move.GetKinMovementCapabilities()
+	}
+
 	return []model.MovementCapability{
 		{X: 0, Y: 1},
 		{X: 0, Y: 2},
